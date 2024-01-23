@@ -1,4 +1,6 @@
 # FHIR Mapper
+👉 Excel add-in for better mapping of clinical codes to FHIR resources.
+![Example](./Screenshot.png)
 
 ## Sideload the add-in for testing
 
