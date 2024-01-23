@@ -35,33 +35,37 @@ function CodingList({ codings }: { codings: Coding[] }) {
   };
   return (
     <ul role="list" className="divide-y divide-gray-100 bg-white border-gray-200 rounded-sm px-1">
-      {codings.map((coding) => (
-        <li key={`${coding.system}|${coding.code}`} className="flex items-center justify-between gap-x-6 py-2">
-          <div className="min-w-0">
-            <div className="flex items-baseline gap-x-3">
-              <p className="text-sm font-semibold leading-6 text-gray-900">{coding.display}</p>
-              <span>
-                <code
-                  className={classNames(
-                    "text-gray-600 bg-gray-50 ring-gray-500/10",
-                    "rounded-md whitespace-nowrap mt-0.5 px-1.5 py-0.5 text-xs font-medium ring-1 ring-inset"
-                  )}
-                >
-                  {coding.code}
-                </code>
-                <a href={`http://snomed.info/sct/${coding.code}`} className="material-symbols-outlined text-xs">
-                  open_in_new
-                </a>
-              </span>
-              {SYSTEM_URI_TO_NAME[coding.system] && (
-                <span className="text-sm text-gray-600">{SYSTEM_URI_TO_NAME[coding.system]}</span>
-              )}
+      {codings.map((coding, i) => (
+        <li key={`${coding.system}|${coding.code}-${i}`} className="relative  py-2">
+          <div className="w-full flex gap-x-2">
+            <div className="grow flex items-baseline gap-x-3">
+              <p className="text-sm font-semibold leading-6 text-gray-900 grow">{coding.display}</p>
+              <div>
+                <span>
+                  <code
+                    className={classNames(
+                      "text-gray-600 bg-gray-50 ring-gray-500/10",
+                      "rounded-md whitespace-nowrap mt-0.5 px-1.5 py-0.5 text-xs font-medium ring-1 ring-inset"
+                    )}
+                  >
+                    {coding.code}
+                  </code>
+                  <a href={`http://snomed.info/sct/${coding.code}`} className="material-symbols-outlined text-xs">
+                    open_in_new
+                  </a>
+                </span>
+              </div>
+              <div>
+                {SYSTEM_URI_TO_NAME[coding.system] && (
+                  <span className="text-sm text-gray-600">{SYSTEM_URI_TO_NAME[coding.system]}</span>
+                )}
+              </div>
             </div>
-          </div>
-          <div className="flex flex-none items-center gap-x-4">
-            <Button type="button" onClick={() => handleClick(coding)}>
-              Importeer
-            </Button>
+            <div>
+              <Button type="button" onClick={() => handleClick(coding)}>
+                Importeer
+              </Button>
+            </div>
           </div>
         </li>
       ))}

@@ -7,7 +7,7 @@
   <Version>1.0.0.1</Version>
   <ProviderName>Contoso</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
-  <DisplayName DefaultValue="fhir-mapper-add-in" />
+  <DisplayName DefaultValue="FHIR Mapper" />
   <Description DefaultValue="Write your own Excel functions in TypeScript." />
   <IconUrl DefaultValue="https://localhost:3000/assets/Square44x44Logo.targetsize-32.png" />
   <HighResolutionIconUrl
@@ -110,7 +110,7 @@
         <bt:String id="Functions.Namespace" DefaultValue="FHIR" />
         <bt:String id="GetStarted.Title" DefaultValue="Get started with FHIR Mapper!" />
         <bt:String id="CommandsGroup.Label" DefaultValue="Commands Group" />
-        <bt:String id="TaskpaneButton.Label" DefaultValue="Show FHIR Mapper" />
+        <bt:String id="TaskpaneButton.Label" DefaultValue="FHIR Mapper" />
       </bt:ShortStrings>
       <bt:LongStrings>
         <bt:String id="GetStarted.Description"

@@ -5,7 +5,7 @@ import App from "./components/App";
 
 /* global Office, module, require */
 
-const title = "FHIR Mapper Add in";
+const title = "FHIR Mapper";
 
 const rootElement: HTMLElement = document.getElementById("container");
 const root = createRoot(rootElement);

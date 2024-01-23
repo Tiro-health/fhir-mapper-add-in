@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@fluentui/react-icons": "^2.0.214",
+    "@tanstack/react-query": "^5.17.19",
     "core-js": "^3.9.1",
     "es6-promise": "^4.2.8",
     "react": "^18.2.0",
