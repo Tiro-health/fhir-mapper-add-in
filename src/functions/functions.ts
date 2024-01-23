@@ -4,7 +4,7 @@
  * Find a matching code
  * @customfunction MAP_DESCRIPTION
  * @param {string} description - the text to use.
- * @returns {Excel.EntityCellValue} - The result of the function code.
+ * @returns The result of the function code.
  */
 // eslint-disable-next-line no-undef
 export async function map_description(description: string): Promise<Excel.EntityCellValue | Excel.ErrorCellValue> {
