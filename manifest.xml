@@ -9,8 +9,9 @@
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="fhir-mapper-add-in" />
   <Description DefaultValue="Write your own Excel functions in TypeScript." />
-  <IconUrl DefaultValue="https://localhost:3000/assets/icon-32.png" />
-  <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/icon-64.png" />
+  <IconUrl DefaultValue="https://localhost:3000/assets/Square44x44Logo.targetsize-32.png" />
+  <HighResolutionIconUrl
+    DefaultValue="https://localhost:3000/assets/Square44x44Logo.targetsize-64.png" />
   <SupportUrl DefaultValue="https://fhir-mapper.tiro.health/help" />
   <AppDomains>
     <AppDomain>https://fhir-mapper.tiro.health</AppDomain>
@@ -88,9 +89,12 @@
     </Hosts>
     <Resources>
       <bt:Images>
-        <bt:Image id="Icon.16x16" DefaultValue="https://localhost:3000/assets/icon-16.png" />
-        <bt:Image id="Icon.32x32" DefaultValue="https://localhost:3000/assets/icon-32.png" />
-        <bt:Image id="Icon.80x80" DefaultValue="https://localhost:3000/assets/icon-80.png" />
+        <bt:Image id="Icon.16x16"
+          DefaultValue="https://localhost:3000/assets/Square44x44Logo.targetsize-16.png" />
+        <bt:Image id="Icon.32x32"
+          DefaultValue="https://localhost:3000/assets/Square44x44Logo.targetsize-32.png" />
+        <bt:Image id="Icon.80x80"
+          DefaultValue="https://localhost:3000/assets/Square44x44Logo.targetsize-80.png" />
       </bt:Images>
       <bt:Urls>
         <bt:Url id="Functions.Script.Url" DefaultValue="https://localhost:3000/public/functions.js" />

@@ -9,11 +9,11 @@
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="fhir-mapper-add-in" />
   <Description DefaultValue="Write your own Excel functions in TypeScript." />
-  <IconUrl DefaultValue="https://www.contoso.com/assets/icon-32.png" />
-  <HighResolutionIconUrl DefaultValue="https://www.contoso.com/assets/icon-64.png" />
-  <SupportUrl DefaultValue="https://www.contoso.com/help" />
+  <IconUrl DefaultValue="https://fhir-mapper.tiro.health/assets/icon-32.png" />
+  <HighResolutionIconUrl DefaultValue="https://fhir-mapper.tiro.health/assets/icon-64.png" />
+  <SupportUrl DefaultValue="https://fhir-mapper.tiro.health/help" />
   <AppDomains>
-    <AppDomain>https://www.contoso.com</AppDomain>
+    <AppDomain>https://fhir-mapper.tiro.health</AppDomain>
   </AppDomains>
   <Hosts>
     <Host Name="Workbook" />
@@ -24,7 +24,7 @@
     </Sets>
   </Requirements>
   <DefaultSettings>
-    <SourceLocation DefaultValue="https://www.contoso.com/taskpane.html" />
+    <SourceLocation DefaultValue="https://fhir-mapper.tiro.health/taskpane.html" />
   </DefaultSettings>
   <Permissions>ReadWriteDocument</Permissions>
   <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
@@ -88,30 +88,30 @@
     </Hosts>
     <Resources>
       <bt:Images>
-        <bt:Image id="Icon.16x16" DefaultValue="https://www.contoso.com/assets/icon-16.png" />
-        <bt:Image id="Icon.32x32" DefaultValue="https://www.contoso.com/assets/icon-32.png" />
-        <bt:Image id="Icon.80x80" DefaultValue="https://www.contoso.com/assets/icon-80.png" />
+        <bt:Image id="Icon.16x16" DefaultValue="https://fhir-mapper.tiro.health/assets/icon-16.png" />
+        <bt:Image id="Icon.32x32" DefaultValue="https://fhir-mapper.tiro.health/assets/icon-32.png" />
+        <bt:Image id="Icon.80x80" DefaultValue="https://fhir-mapper.tiro.health/assets/icon-80.png" />
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="Functions.Script.Url" DefaultValue="https://www.contoso.com/functions.js" />
+        <bt:Url id="Functions.Script.Url" DefaultValue="https://fhir-mapper.tiro.health/functions.js" />
         <bt:Url id="Functions.Metadata.Url"
-          DefaultValue="https://www.contoso.com/functions.json" />
-        <bt:Url id="Functions.Page.Url" DefaultValue="https://www.contoso.com/functions.html" />
+          DefaultValue="https://fhir-mapper.tiro.health/functions.json" />
+        <bt:Url id="Functions.Page.Url" DefaultValue="https://fhir-mapper.tiro.health/functions.html" />
         <bt:Url id="GetStarted.LearnMoreUrl"
           DefaultValue="https://go.microsoft.com/fwlink/?LinkId=276812" />
-        <bt:Url id="Commands.Url" DefaultValue="https://www.contoso.com/commands.html" />
-        <bt:Url id="Taskpane.Url" DefaultValue="https://www.contoso.com/taskpane.html" />
+        <bt:Url id="Commands.Url" DefaultValue="https://fhir-mapper.tiro.health/commands.html" />
+        <bt:Url id="Taskpane.Url" DefaultValue="https://fhir-mapper.tiro.health/taskpane.html" />
       </bt:Urls>
       <bt:ShortStrings>
-        <bt:String id="Functions.Namespace" DefaultValue="CONTOSO" />
-        <bt:String id="GetStarted.Title" DefaultValue="Get started with your sample add-in!" />
+        <bt:String id="Functions.Namespace" DefaultValue="FHIR" />
+        <bt:String id="GetStarted.Title" DefaultValue="Get started with FHIR Mapper!" />
         <bt:String id="CommandsGroup.Label" DefaultValue="Commands Group" />
-        <bt:String id="TaskpaneButton.Label" DefaultValue="Show Taskpane" />
+        <bt:String id="TaskpaneButton.Label" DefaultValue="Show FHIR Mapper" />
       </bt:ShortStrings>
       <bt:LongStrings>
         <bt:String id="GetStarted.Description"
-          DefaultValue="Your sample add-in loaded succesfully. Go to the HOME tab and click the 'Show Taskpane' button to get started." />
-        <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Click to Show a Taskpane" />
+          DefaultValue="Tiro.health FHIR Mapper has succesfully loaded. Go to the HOME tab and click the 'Open FHIR Mapper' button to get started." />
+        <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Click to Show the FHIR Mapper." />
       </bt:LongStrings>
     </Resources>
   </VersionOverrides>
