@@ -1,8 +1,5 @@
 {
-  "plugins": [
-    "office-addins"
-  ],
-  "extends": [
-    "plugin:office-addins/recommended"
-  ]
+  "plugins": ["office-addins"],
+  "extends": ["plugin:office-addins/recommended"],
+  "env": { "browser": true }
 }
