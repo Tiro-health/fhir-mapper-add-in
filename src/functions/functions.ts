@@ -33,15 +33,14 @@ export async function map_description(description: string): Promise<Excel.Entity
     return e;
   }
 }
+
+const UNKOWN_SYMBOL = "❓";
 /**
  * Parse a raw JSON result into an entity card
  * @customfunction PARSE_RESULT
  * @param {string} raw - Raw JSON result.
  * @returns - Entity card with structured results
  */
-
-const UNKOWN_SYMBOL = "❓";
-
 // eslint-disable-next-line no-undef
 export default async function parseResult(raw: string): Promise<Excel.EntityCellValue | Excel.ErrorCellValue> {
   try {
