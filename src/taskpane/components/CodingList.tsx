@@ -14,17 +14,17 @@ const SYSTEM_URI_TO_NAME: Record<string, string> = {
 export const EXAMPLE_CODINGS: Coding[] = [
   {
     code: "123",
-    display: "Test",
+    display: "Test 1",
     system: "http://snomed.info/sct",
   },
   {
-    code: "123",
-    display: "Test",
+    code: "234",
+    display: "Test 2",
     system: "http://snomed.info/sct",
   },
   {
-    code: "123",
-    display: "Test",
+    code: "345",
+    display: "Test 3",
     system: "http://snomed.info/sct",
   },
 ];

@@ -1,6 +1,7 @@
 import React from "react";
-import CodingList, { EXAMPLE_CODINGS } from "./AlternativeSuggestions";
+import CodingList, { EXAMPLE_CODINGS } from "./CodingList";
 import { Coding } from "../types";
+import getAlternativeResults from "../getAlternativeSuggestions";
 import Button from "./Button";
 
 interface AppProps {
@@ -28,7 +29,7 @@ const App = ({ title }: AppProps) => {
               </button>
             </div>
           </div>
-          <CodingList codings={EXAMPLE_CODINGS} />
+          <CodingList codings={alternativeSuggestions} />
         </section>
         <section className="">
           <h4 className="font-semibold text-lg text-gray-900 leading-tight">Zoek een andere code</h4>
@@ -50,8 +51,10 @@ const App = ({ title }: AppProps) => {
     </div>
   );
 
-  function refreshAlternativeSuggestions() {
-    setAlternativeSuggestions(EXAMPLE_CODINGS);
+  async function refreshAlternativeSuggestions() {
+    const alternatives = await getAlternativeResults();
+    console.log({ alternatives });
+    setAlternativeSuggestions(alternatives);
   }
 
   function handleSearch(event: React.FormEvent<HTMLFormElement>) {
