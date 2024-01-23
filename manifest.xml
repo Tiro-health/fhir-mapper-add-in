@@ -103,15 +103,15 @@
         <bt:Url id="Taskpane.Url" DefaultValue="https://localhost:3000/taskpane.html" />
       </bt:Urls>
       <bt:ShortStrings>
-        <bt:String id="Functions.Namespace" DefaultValue="CONTOSO" />
-        <bt:String id="GetStarted.Title" DefaultValue="Get started with your sample add-in!" />
+        <bt:String id="Functions.Namespace" DefaultValue="FHIR" />
+        <bt:String id="GetStarted.Title" DefaultValue="Get started with FHIR Mapper!" />
         <bt:String id="CommandsGroup.Label" DefaultValue="Commands Group" />
-        <bt:String id="TaskpaneButton.Label" DefaultValue="Show Taskpane" />
+        <bt:String id="TaskpaneButton.Label" DefaultValue="Show FHIR Mapper" />
       </bt:ShortStrings>
       <bt:LongStrings>
         <bt:String id="GetStarted.Description"
-          DefaultValue="Your sample add-in loaded succesfully. Go to the HOME tab and click the 'Show Taskpane' button to get started." />
-        <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Click to Show a Taskpane" />
+          DefaultValue="Tiro.health FHIR Mapper has succesfully loaded. Go to the HOME tab and click the 'Open FHIR Mapper' button to get started." />
+        <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Click to Show the FHIR Mapper." />
       </bt:LongStrings>
     </Resources>
   </VersionOverrides>
