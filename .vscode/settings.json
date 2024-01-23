@@ -1,8 +1,5 @@
 {
-    "eslint.validate": [
-      "javascript",
-      "javascriptreact",
-      "typescript"
-    ]
-  }
-  
+  "eslint.validate": ["javascript", "javascriptreact", "typescript"],
+  "editor.formatOnSave": false,
+  "css.customData": [".vscode/css_custom_data.json"]
+}
