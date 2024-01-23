@@ -1,4 +1,7 @@
 ﻿/** global Excel */
+//const SERVER = "http://localhost:8000";
+
+const SERVER = "https://fhir-mapper-wkrcomcqfq-ew.a.run.app";
 
 /**
  * Find a matching code
@@ -10,7 +13,7 @@
 export async function map_description(description: string): Promise<Excel.EntityCellValue | Excel.ErrorCellValue> {
   const encodedDescription = encodeURIComponent(description);
   try {
-    const url = `https://fhir-mapper-wkrcomcqfq-ew.a.run.app/?text=${encodedDescription}`;
+    const url = `${SERVER}/?text=${encodedDescription}`;
     console.log("Fetching " + url);
     const response = await fetch(url);
     console.log("HTTP status:" + response.status);
