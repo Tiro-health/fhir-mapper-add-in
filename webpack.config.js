@@ -5,6 +5,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const CustomFunctionsMetadataPlugin = require("custom-functions-metadata-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
+const webpack = require("webpack");
 
 const urlDev = "https://localhost:3000/";
 const urlProd = "https://fhir-mapper.tiro.health/"; // CHANGE THIS TO YOUR PRODUCTION DEPLOYMENT LOCATION
@@ -22,7 +23,8 @@ module.exports = async (env, options) => {
     devtool: "source-map",
     entry: {
       polyfill: ["core-js/stable", "regenerator-runtime/runtime"],
-      taskpane: ["./src/taskpane/taskpane.ts", "./src/taskpane/taskpane.html"],
+      vendor: ["react", "react-dom", "core-js", "@fluentui/react-components", "@fluentui/react-icons"],
+      taskpane: ["./src/taskpane/index.tsx", "./src/taskpane/taskpane.html"],
       commands: "./src/commands/commands.ts",
       functions: "./src/functions/functions.ts",
     },
@@ -47,7 +49,7 @@ module.exports = async (env, options) => {
         {
           test: /\.tsx?$/,
           exclude: /node_modules/,
-          use: "ts-loader",
+          use: ["ts-loader"],
         },
         {
           test: /\.html$/,
@@ -71,7 +73,7 @@ module.exports = async (env, options) => {
       new HtmlWebpackPlugin({
         filename: "taskpane.html",
         template: "./src/taskpane/taskpane.html",
-        chunks: ["polyfill", "taskpane", "commands", "functions"],
+        chunks: ["polyfill", "vender", "taskpane", "commands", "functions"],
       }),
       new CopyWebpackPlugin({
         patterns: [
@@ -92,8 +94,12 @@ module.exports = async (env, options) => {
           },
         ],
       }),
+      new webpack.ProvidePlugin({
+        Promise: ["es6-promise", "Promise"],
+      }),
     ],
     devServer: {
+      hot: true,
       static: {
         directory: path.join(__dirname, "dist"),
         publicPath: "/public",
