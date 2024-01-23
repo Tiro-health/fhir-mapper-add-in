@@ -5,7 +5,7 @@
   xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="TaskPaneApp">
   <Id>fce0907a-e4de-4c9b-95d8-270605718b19</Id>
   <Version>1.0.0.1</Version>
-  <ProviderName>Contoso</ProviderName>
+  <ProviderName>Tiro.health</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="FHIR Mapper" />
   <Description DefaultValue="Write your own Excel functions in TypeScript." />
