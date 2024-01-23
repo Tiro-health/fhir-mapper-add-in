@@ -2,6 +2,12 @@
 👉 Excel add-in for better mapping of clinical codes to FHIR resources.
 ![Example](./Screenshot.png)
 
+## Functions
+
+- `FHIR.MAP_DESCRIPTION(text)`
+- `FHIR.PARSE_RESULT(raw)`
+
+
 ## Sideload the add-in for testing
 
 You can test the continous build of the add-in by sideloading it into Excel. To do this, you'll need a `manifest.xml` file that describes the add-in an import it into Excel. Depending on your platform (Mac or Windows), you'll need to place the `manifest.xml` file in a different location.
