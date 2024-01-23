@@ -27,11 +27,12 @@ jobs:
       run: |
         npm install
         npm run build
-    - name: Create tarbal
-      run: |
-        tar -czvf artifact.tar.gz dist
+   
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v2
+      with:
+        path: dist 
+
   deploy:
     needs: build
     permissions:
