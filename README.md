@@ -53,9 +53,8 @@ Click on the home tab and you should see a button called "FHIR Mapper". Click on
 
 ### Clear Cache (on Mac)
 
-Sometimes the add-in will not load properly. This can be fixed by clearing the cache.
+Sometimes the add-in will not load properly. This can be fixed by clearing the cache. [Clear Cache](https://learn.microsoft.com/en-us/office/dev/add-ins/testing/clear-cache)
 
-[https://learn.microsoft.com/en-us/office/dev/add-ins/testing/clear-cache](Clear Cache)
 ```bash
 rm -rf  ~/Library/Containers/com.microsoft.Excel/Data/Library/Caches/*
 ```
@@ -70,6 +69,5 @@ Now you can open the developer tools by right clicking on the add-in and selecti
 
 For Mac OS X?
 Make sure you have installed Excel via Office 365, and not the App Store.
-[https://learn.microsoft.com/en-us/office/dev/add-ins/testing/debug-office-add-ins-on-ipad-and-mac](Debug Office Add-ins on iPad and Mac)
-
+[Debug Office Add-ins on iPad and Mac](https://learn.microsoft.com/en-us/office/dev/add-ins/testing/debug-office-add-ins-on-ipad-and-mac)
 
