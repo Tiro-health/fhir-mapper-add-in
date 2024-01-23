@@ -27,7 +27,6 @@
     "watch": "webpack --mode development --watch"
   },
   "dependencies": {
-    "@fluentui/react-components": "^9.30.4",
     "@fluentui/react-icons": "^2.0.214",
     "core-js": "^3.9.1",
     "es6-promise": "^4.2.8",
@@ -47,6 +46,7 @@
     "acorn": "^8.5.0",
     "babel-loader": "^8.3.0",
     "copy-webpack-plugin": "^9.0.1",
+    "css-loader": "^6.9.1",
     "custom-functions-metadata-plugin": "^1.4.5",
     "eslint-plugin-office-addins": "^2.1.5",
     "eslint-plugin-react": "^7.28.0",
@@ -55,6 +55,7 @@
     "html-webpack-plugin": "^5.5.0",
     "less": "^3.9.0",
     "less-loader": "^10.0.1",
+    "mini-css-extract-plugin": "^2.7.7",
     "office-addin-cli": "^1.5.5",
     "office-addin-debugging": "^5.0.5",
     "office-addin-dev-certs": "^1.11.3",
@@ -65,6 +66,7 @@
     "process": "^0.11.10",
     "request": "^2.88.2",
     "source-map-loader": "^3.0.0",
+    "tailwindcss": "^3.4.1",
     "ts-loader": "^9.4.1",
     "typescript": "^4.3.5",
     "webpack": "^5.76.3",

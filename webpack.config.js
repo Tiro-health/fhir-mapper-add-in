@@ -4,6 +4,8 @@ const devCerts = require("office-addin-dev-certs");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const CustomFunctionsMetadataPlugin = require("custom-functions-metadata-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
 const path = require("path");
 const webpack = require("webpack");
 
@@ -23,7 +25,7 @@ module.exports = async (env, options) => {
     devtool: "source-map",
     entry: {
       polyfill: ["core-js/stable", "regenerator-runtime/runtime"],
-      vendor: ["react", "react-dom", "core-js", "@fluentui/react-components", "@fluentui/react-icons"],
+      vendor: ["react", "react-dom", "core-js", "@fluentui/react-icons"],
       taskpane: ["./src/taskpane/index.tsx", "./src/taskpane/taskpane.html"],
       commands: "./src/commands/commands.ts",
       functions: "./src/functions/functions.ts",
@@ -57,6 +59,10 @@ module.exports = async (env, options) => {
           use: "html-loader",
         },
         {
+          test: /\.css$/i,
+          use: [MiniCssExtractPlugin.loader, "css-loader"],
+        },
+        {
           test: /\.(png|jpg|jpeg|gif|ico)$/,
           type: "asset/resource",
           generator: {
@@ -66,6 +72,7 @@ module.exports = async (env, options) => {
       ],
     },
     plugins: [
+      new MiniCssExtractPlugin(),
       new CustomFunctionsMetadataPlugin({
         output: "functions.json",
         input: "./src/functions/functions.ts",

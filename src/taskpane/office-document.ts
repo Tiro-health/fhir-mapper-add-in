@@ -1,4 +1,4 @@
-/* global Excel console */
+/* global Excel */
 
 const insertText = async (text: string) => {
   // Write text to the top left cell.
