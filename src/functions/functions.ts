@@ -1,10 +1,12 @@
 ﻿/** global Excel */
 //const SERVER = "http://localhost:8000";
 
+import { CodingMatch, ProcedureMatchSchema } from "./schema";
+
 const SERVER = "https://fhir-mapper-wkrcomcqfq-ew.a.run.app";
 
 /**
- * Find a matching code
+ * Map a description to a FHIR Procedure resource
  * @customfunction MAP_DESCRIPTION
  * @param {string} description - the text to use.
  * @returns The result of the function code.
@@ -14,154 +16,159 @@ export async function map_description(description: string): Promise<Excel.Entity
   const encodedDescription = encodeURIComponent(description);
   try {
     const url = `${SERVER}/?text=${encodedDescription}`;
-    console.log("Fetching " + url);
     const response = await fetch(url);
-    console.log("HTTP status:" + response.status);
-    console.log("Body: " + response.body);
     if (!response.ok) {
-      console.log("Failed to fetch:\n" + response.body);
       return {
         errorType: "Connect",
         type: "Error",
       };
     }
-    const contentType = response.headers.get("Content-Type");
-    console.log("Content-Type:", contentType);
     // wait for response of API
     const responseBody = await response.json();
-    // Get the first array in 'procedure.code'
-    const procedureArray: any[] | undefined = responseBody["procedure.code"];
-    const reasonCodeArray: any[] | undefined = responseBody["procedure.reasonCode"];
-    const bodySiteArray: any[] | undefined = responseBody["procedure.bodySite"];
-    const focalDeviceArray: any[] | undefined = responseBody["procedure.focalDevice"];
-    const usedCodeArray: any[] | undefined = responseBody["procedure.usedCode"];
-    console.log("reached this point");
-    // eslint-disable-next-line no-undef
-    const entity: Excel.EntityCellValue = {
-      type: "Entity",
-      text: JSON.stringify(procedureArray[0]["display"]),
-      properties: {
-        display: {
-          type: "String",
-          basicValue: JSON.stringify(procedureArray[0]["display"]),
-        },
-        code: {
-          type: "String",
-          basicValue: JSON.stringify(procedureArray[0]["code"]),
-        },
-        url: {
-          type: "String",
-          basicValue: `http://snomed.info/sct/${procedureArray[0]["code"]}`,
-        },
-        reasonCode: {
-          type: "Entity",
-          text: reasonCodeArray && reasonCodeArray[0] ? JSON.stringify(reasonCodeArray[0]["display"]) : "/",
-          properties: {
-            display: {
-              type: "String",
-              basicValue: reasonCodeArray && reasonCodeArray[0] ? JSON.stringify(reasonCodeArray[0]["display"]) : "/",
-            },
-            code: {
-              type: "String",
-              basicValue: reasonCodeArray && reasonCodeArray[0] ? JSON.stringify(reasonCodeArray[0]["code"]) : "/",
-            },
-            url: {
-              type: "String",
-              basicValue:
-                reasonCodeArray && reasonCodeArray[0] ? `http://snomed.info/sct/${reasonCodeArray[0]["code"]}` : "/",
-            },
-          },
-        },
-        bodySite: {
-          type: "Entity",
-          text: bodySiteArray && bodySiteArray[0] ? JSON.stringify(bodySiteArray[0]["display"]) : "/",
-          properties: {
-            display: {
-              type: "String",
-              basicValue: bodySiteArray && bodySiteArray[0] ? JSON.stringify(bodySiteArray[0]["display"]) : "/",
-            },
-            code: {
-              type: "String",
-              basicValue: bodySiteArray && bodySiteArray[0] ? JSON.stringify(bodySiteArray[0]["code"]) : "/",
-            },
-            url: {
-              type: "String",
-              basicValue:
-                bodySiteArray && bodySiteArray[0] ? `http://snomed.info/sct/${bodySiteArray[0]["code"]}` : "/",
-            },
-          },
-        },
-        focalDevice: {
-          type: "Entity",
-          text: focalDeviceArray && focalDeviceArray[0] ? JSON.stringify(focalDeviceArray[0]["display"]) : "/",
-          properties: {
-            display: {
-              type: "String",
-              basicValue:
-                focalDeviceArray && focalDeviceArray[0] ? JSON.stringify(focalDeviceArray[0]["display"]) : "/",
-            },
-            code: {
-              type: "String",
-              basicValue: focalDeviceArray && focalDeviceArray[0] ? JSON.stringify(focalDeviceArray[0]["code"]) : "/",
-            },
-            url: {
-              type: "String",
-              basicValue:
-                focalDeviceArray && focalDeviceArray[0] ? `http://snomed.info/sct/${focalDeviceArray[0]["code"]}` : "/",
-            },
-          },
-        },
-        usedCode: {
-          type: "Entity",
-          text: usedCodeArray && usedCodeArray[0] ? JSON.stringify(usedCodeArray[0]["display"]) : "/",
-          properties: {
-            display: {
-              type: "String",
-              basicValue: usedCodeArray && usedCodeArray[0] ? JSON.stringify(usedCodeArray[0]["display"]) : "/",
-            },
-            code: {
-              type: "String",
-              basicValue: usedCodeArray && usedCodeArray[0] ? JSON.stringify(usedCodeArray[0]["code"]) : "/",
-            },
-            url: {
-              type: "String",
-              basicValue:
-                usedCodeArray && usedCodeArray[0] ? `http://snomed.info/sct/${usedCodeArray[0]["code"]}` : "/",
-            },
-          },
-        },
-      },
-      layouts: {
-        card: {
-          title: {
-            property: "display",
-          },
-          sections: [
-            {
-              layout: "List",
-              title: "procedure",
-              properties: ["display", "code", "url"],
-            },
-          ],
-        },
-      },
-    };
-    return entity;
+
+    return buildEntityCard(responseBody);
   } catch (e) {
     console.log("Request failed.");
     console.error(e);
     return e;
   }
 }
-
 /**
- * Writes a message to console.log().
- * @customfunction LOG
- * @param message String to write.
- * @returns String to write.
+ * Parse a raw JSON result into an entity card
+ * @customfunction PARSE_RESULT
+ * @param {string} raw - Raw JSON result.
+ * @returns - Entity card with structured results
  */
-export function logMessage(message: string): string {
-  console.log(message);
 
-  return message;
+const UNKOWN_SYMBOL = "❓";
+
+// eslint-disable-next-line no-undef
+export default async function parseResult(raw: string): Promise<Excel.EntityCellValue | Excel.ErrorCellValue> {
+  try {
+    const cleaned = raw.replace(/'/g, '"');
+    const deserialized = JSON.parse(cleaned);
+    return buildEntityCard(deserialized);
+  } catch (e) {
+    console.log("Request failed.");
+    console.error(e);
+    return {
+      type: "Error",
+      errorType: "Connect",
+    };
+  }
+}
+
+// eslint-disable-next-line no-undef
+function buildEntityCard(deserialized: unknown): Excel.EntityCellValue | Excel.ErrorCellValue {
+  const parsed = ProcedureMatchSchema.safeParse(deserialized);
+  if (!parsed.success) {
+    return {
+      type: "Error",
+      errorType: "Value",
+      errorSubType: "Unknown",
+      basicValue: "Failed to parse JSON result.",
+    };
+  }
+  const { data } = parsed;
+  const procedureCode = data["procedure.code"] as CodingMatch[];
+  const reasonCode = data["procedure.reasonCode"] as CodingMatch[];
+  const bodySite = data["procedure.bodySite"] as CodingMatch[];
+  const focalDevice = data["procedure.focalDevice"] as CodingMatch[];
+  const usedCode = data["procedure.usedCode"] as CodingMatch[];
+
+  // eslint-disable-next-line no-undef
+  const properties: [string, Excel.EntityPropertyType][] = [];
+
+  if (procedureCode.length > 0) {
+    // add procedureCode display, code, score, url
+    Object.entries(getCodingMatchProperties(procedureCode[0])).map((p) => properties.push(p));
+  }
+  if (reasonCode.length > 0) {
+    // add reasonCode display, code, score, url
+    properties.push(["reasonCode", getCodingMatchEntity(reasonCode[0])]);
+  }
+  if (bodySite.length > 0) {
+    // add bodySite display, code, score, url
+    properties.push(["bodySite", getCodingMatchEntity(bodySite[0])]);
+  }
+  if (focalDevice.length > 0) {
+    // add focalDevice display, code, score, url
+    properties.push(["focalDevice", getCodingMatchEntity(focalDevice[0])]);
+  }
+  if (usedCode.length > 0) {
+    // add usedCode display, code, score, url
+    properties.push(["usedCode", getCodingMatchEntity(usedCode[0])]);
+  }
+
+  if (procedureCode.length > 1) {
+    // add secondOption for procedureCode
+    // eslint-disable-next-line no-undef
+    const secondOption: Excel.EntityPropertyType = {
+      type: "Entity",
+      text: procedureCode[1]?.display ?? UNKOWN_SYMBOL,
+      properties: getCodingMatchProperties(procedureCode[1]),
+    };
+    properties.push(["secondOption", secondOption]);
+  }
+
+  // eslint-disable-next-line no-undef
+  const entity: Excel.EntityCellValue = {
+    type: "Entity",
+    text: procedureCode[0]?.display ?? UNKOWN_SYMBOL,
+    properties: Object.fromEntries(properties),
+    layouts: {
+      card: {
+        title: {
+          property: "display",
+        },
+        sections: [
+          {
+            layout: "List",
+            title: "procedure",
+            properties: ["display", "code", "url", "score"],
+          },
+        ],
+      },
+    },
+  };
+  return entity;
+}
+
+// eslint-disable-next-line no-undef
+function getCodingMatchProperties(match: CodingMatch): Record<string, Excel.EntityPropertyType> {
+  return {
+    display: {
+      type: "String",
+      basicValue: match.display,
+    },
+    code: {
+      type: "String",
+      basicValue: match.code,
+    },
+    score: {
+      type: "Double",
+      basicValue: match.score,
+    },
+    url: {
+      type: "String",
+      basicValue: match ? `http://snomed.info/sct/${match.code}` : "/",
+      propertyMetadata: {
+        attribution: [
+          {
+            sourceText: "SNOMED-CT browser",
+            sourceAddress: `http://snomed.info/sct/${match.code}`,
+          },
+        ],
+      },
+    },
+  };
+}
+
+// eslint-disable-next-line no-undef
+function getCodingMatchEntity(match: CodingMatch): Excel.EntityCellValue {
+  return {
+    type: "Entity",
+    text: match.display,
+    properties: getCodingMatchProperties(match),
+  };
 }
