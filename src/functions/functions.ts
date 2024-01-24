@@ -74,28 +74,29 @@ function buildEntityCard(deserialized: unknown): Excel.EntityCellValue | Excel.E
   const bodySite = data["procedure.bodySite"] as CodingMatch[];
   const focalDevice = data["procedure.focalDevice"] as CodingMatch[];
   const usedCode = data["procedure.usedCode"] as CodingMatch[];
-
+  // const emptyCoding = [{ display: "/", code: "/", semantic_axis: "/", score: 0 }] as CodingMatch[];
   // eslint-disable-next-line no-undef
   const properties: [string, Excel.EntityPropertyType][] = [];
 
   if (procedureCode.length > 0) {
-    // add procedureCode display, code, score, url
+    // add procedureCode display, code, score, system
     Object.entries(getCodingMatchProperties(procedureCode[0])).map((p) => properties.push(p));
   }
   if (reasonCode.length > 0) {
-    // add reasonCode display, code, score, url
+    // add reasonCode display, code, score, system
     properties.push(["reasonCode", getCodingMatchEntity(reasonCode[0])]);
   }
+  // else {properties.push(["reasonCode", getCodingMatchEntity(emptyCoding)]);}
   if (bodySite.length > 0) {
-    // add bodySite display, code, score, url
+    // add bodySite display, code, score, system
     properties.push(["bodySite", getCodingMatchEntity(bodySite[0])]);
   }
   if (focalDevice.length > 0) {
-    // add focalDevice display, code, score, url
+    // add focalDevice display, code, score, system
     properties.push(["focalDevice", getCodingMatchEntity(focalDevice[0])]);
   }
   if (usedCode.length > 0) {
-    // add usedCode display, code, score, url
+    // add usedCode display, code, score, system
     properties.push(["usedCode", getCodingMatchEntity(usedCode[0])]);
   }
 
@@ -124,7 +125,7 @@ function buildEntityCard(deserialized: unknown): Excel.EntityCellValue | Excel.E
           {
             layout: "List",
             title: "procedure",
-            properties: ["display", "code", "url", "score"],
+            properties: ["display", "code", "system", "score"],
           },
         ],
       },
@@ -148,7 +149,7 @@ function getCodingMatchProperties(match: CodingMatch): Record<string, Excel.Enti
       type: "Double",
       basicValue: match.score,
     },
-    url: {
+    system: {
       type: "String",
       basicValue: match ? `http://snomed.info/sct/${match.code}` : "/",
       propertyMetadata: {
