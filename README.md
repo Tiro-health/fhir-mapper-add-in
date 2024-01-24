@@ -49,7 +49,7 @@ npm run dev-server
 
 This will start a local server on port 3000. You can verify that the server is running by navigating to [http://localhost:3000/manifest.xml](http://localhost:3000/manifest.xml). You should see the contents of the `manifest.xml` file.
 
-## Launch dev add-in:
+### Launch dev add-in:
 ```bash
 npm start
 ```
