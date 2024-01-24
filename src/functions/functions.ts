@@ -74,7 +74,7 @@ function buildEntityCard(deserialized: unknown): Excel.EntityCellValue | Excel.E
   const bodySite = data["procedure.bodySite"] as CodingMatch[];
   const focalDevice = data["procedure.focalDevice"] as CodingMatch[];
   const usedCode = data["procedure.usedCode"] as CodingMatch[];
-  // const emptyCoding = [{ display: "/", code: "/", semantic_axis: "/", score: 0 }] as CodingMatch[];
+  const emptyCoding = { display: "/", code: "/", semantic_axis: "/", score: 0 };
   // eslint-disable-next-line no-undef
   const properties: [string, Excel.EntityPropertyType][] = [];
 
@@ -85,19 +85,26 @@ function buildEntityCard(deserialized: unknown): Excel.EntityCellValue | Excel.E
   if (reasonCode.length > 0) {
     // add reasonCode display, code, score, system
     properties.push(["reasonCode", getCodingMatchEntity(reasonCode[0])]);
+  } else {
+    properties.push(["reasonCode", getCodingMatchEntity(emptyCoding)]);
   }
-  // else {properties.push(["reasonCode", getCodingMatchEntity(emptyCoding)]);}
   if (bodySite.length > 0) {
     // add bodySite display, code, score, system
     properties.push(["bodySite", getCodingMatchEntity(bodySite[0])]);
+  } else {
+    properties.push(["bodySite", getCodingMatchEntity(emptyCoding)]);
   }
   if (focalDevice.length > 0) {
     // add focalDevice display, code, score, system
     properties.push(["focalDevice", getCodingMatchEntity(focalDevice[0])]);
-  }
+  } else {
+    properties.push(["focalDevice", getCodingMatchEntity(emptyCoding)]);
+  } 
   if (usedCode.length > 0) {
     // add usedCode display, code, score, system
     properties.push(["usedCode", getCodingMatchEntity(usedCode[0])]);
+  } else {
+    properties.push(["usedCode", getCodingMatchEntity(emptyCoding)]);
   }
 
   if (procedureCode.length > 1) {
