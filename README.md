@@ -79,3 +79,15 @@ For Mac OS X?
 Make sure you have installed Excel via Office 365, and not the App Store.
 [Debug Office Add-ins on iPad and Mac](https://learn.microsoft.com/en-us/office/dev/add-ins/testing/debug-office-add-ins-on-ipad-and-mac)
 
+### Kill orphan node processes
+Find the processs id
+```bash
+lsof -i tcp:3000
+```
+
+
+Kill the process
+```bash
+kill <pid>
+```
+
