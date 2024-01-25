@@ -1,4 +1,4 @@
-﻿/** global Excel */
+﻿/*÷* global Excel */
 //const SERVER = "http://localhost:8000";
 
 import { CodingMatch, ProcedureMatchSchema } from "./schema";
@@ -34,7 +34,7 @@ export async function map_description(description: string): Promise<Excel.Entity
   }
 }
 
-const UNKOWN_SYMBOL = "❓";
+// const UNKOWN_SYMBOL = "❓";
 /**
  * Parse a raw JSON result into an entity card
  * @customfunction PARSE_RESULT
@@ -76,11 +76,27 @@ function buildEntityCard(deserialized: unknown): Excel.EntityCellValue | Excel.E
   const usedCode = data["procedure.usedCode"] as CodingMatch[];
   const emptyCoding = { display: "/", code: "/", semantic_axis: "/", score: 0 };
   // eslint-disable-next-line no-undef
-  const properties: [string, Excel.EntityPropertyType][] = [];
+  const properties: [string, Excel.EntityPropertyType | Excel.EntityCellValue][] = [];
+  // eslint-disable-next-line no-undef
+  const altproperties: [string, Excel.EntityPropertyType | Excel.EntityCellValue][] = [];
 
   if (procedureCode.length > 0) {
     // add procedureCode display, code, score, system
-    Object.entries(getCodingMatchProperties(procedureCode[0])).map((p) => properties.push(p));
+    Object.entries("procedure");
+    const procedureProperties = getCodingMatchEntity(procedureCode[0]);
+    if (procedureCode.length > 1) {
+      procedureCode
+        .slice(1, procedureCode.length)
+        .forEach((value, index) => altproperties.push([index.toString(), getCodingMatchEntity(value)]));
+      // eslint-disable-next-line no-undef
+      const alternatives: Excel.EntityCellValue = {
+        type: "Entity",
+        text: "Alternatives",
+        properties: Object.fromEntries(altproperties),
+      };
+      procedureProperties["properties"]["alternatives"] = alternatives;
+    }
+    properties.push(["procedureCode", procedureProperties]);
   }
   if (reasonCode.length > 0) {
     // add reasonCode display, code, score, system
@@ -99,7 +115,7 @@ function buildEntityCard(deserialized: unknown): Excel.EntityCellValue | Excel.E
     properties.push(["focalDevice", getCodingMatchEntity(focalDevice[0])]);
   } else {
     properties.push(["focalDevice", getCodingMatchEntity(emptyCoding)]);
-  } 
+  }
   if (usedCode.length > 0) {
     // add usedCode display, code, score, system
     properties.push(["usedCode", getCodingMatchEntity(usedCode[0])]);
@@ -107,32 +123,24 @@ function buildEntityCard(deserialized: unknown): Excel.EntityCellValue | Excel.E
     properties.push(["usedCode", getCodingMatchEntity(emptyCoding)]);
   }
 
-  if (procedureCode.length > 1) {
-    // add secondOption for procedureCode
-    // eslint-disable-next-line no-undef
-    const secondOption: Excel.EntityPropertyType = {
-      type: "Entity",
-      text: procedureCode[1]?.display ?? UNKOWN_SYMBOL,
-      properties: getCodingMatchProperties(procedureCode[1]),
-    };
-    properties.push(["secondOption", secondOption]);
-  }
-
   // eslint-disable-next-line no-undef
   const entity: Excel.EntityCellValue = {
     type: "Entity",
-    text: procedureCode[0]?.display ?? UNKOWN_SYMBOL,
+    text: "Results based on JSONresult",
     properties: Object.fromEntries(properties),
     layouts: {
       card: {
-        title: {
-          property: "display",
-        },
+        title: "APIresult",
         sections: [
           {
             layout: "List",
-            title: "procedure",
-            properties: ["display", "code", "system", "score"],
+            title: "Procedure",
+            properties: ["procedureCode"],
+          },
+          {
+            layout: "List",
+            title: "Attributes",
+            properties: ["bodySite", "reasonCode", "focalDevice", "usedCode"],
           },
         ],
       },
@@ -151,14 +159,6 @@ function getCodingMatchProperties(match: CodingMatch): Record<string, Excel.Enti
     code: {
       type: "String",
       basicValue: match.code,
-    },
-    score: {
-      type: "Double",
-      basicValue: match.score,
-    },
-    system: {
-      type: "String",
-      basicValue: match ? `http://snomed.info/sct/${match.code}` : "/",
       propertyMetadata: {
         attribution: [
           {
@@ -168,14 +168,34 @@ function getCodingMatchProperties(match: CodingMatch): Record<string, Excel.Enti
         ],
       },
     },
+    score: {
+      type: "Double",
+      basicValue: match.score,
+    },
+    system: {
+      type: "String",
+      basicValue: match ? `http://snomed.info/sct/` : "/",
+    },
   };
 }
 
 // eslint-disable-next-line no-undef
-function getCodingMatchEntity(match: CodingMatch): Excel.EntityCellValue {
+function getCodingMatchEntity(match: CodingMatch): Excel.EntityCellValue | Excel.EntityPropertyType {
   return {
     type: "Entity",
     text: match.display,
     properties: getCodingMatchProperties(match),
+    // layouts: {
+    //   card: {
+    //     title: "display",
+    //     sections: [
+    //       {
+    //         layout: "List",
+    //         title: "Procedure",
+    //         properties: ["display, code, system"],
+    //       },
+    //     ],
+    //   },
+    // },
   };
 }
