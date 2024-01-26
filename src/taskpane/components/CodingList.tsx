@@ -1,5 +1,6 @@
 import React from "react";
 import importCodingToCell from "../importCoding";
+import importCodingNewLine from "../importNewLine";
 import { Coding } from "../types";
 import Button from "./Button";
 
@@ -33,6 +34,10 @@ function CodingList({ codings }: { codings: Coding[] }) {
   const handleClick = (coding: Coding) => {
     importCodingToCell(coding);
   };
+  const handleNewLineClick = (coding: Coding) => {
+    importCodingNewLine(coding);
+  };
+
   return (
     <ul role="list" className="divide-y divide-gray-100 bg-white border-gray-200 rounded-sm px-1">
       {codings.map((coding, i) => (
@@ -62,8 +67,13 @@ function CodingList({ codings }: { codings: Coding[] }) {
               </div>
             </div>
             <div>
-              <Button type="button" onClick={() => handleClick(coding)}>
+              <Button key="import_button" type="button" onClick={() => handleClick(coding)}>
                 Importeer
+              </Button>
+            </div>
+            <div>
+              <Button key="add_button" type="button" onClick={() => handleNewLineClick(coding)}>
+                +
               </Button>
             </div>
           </div>

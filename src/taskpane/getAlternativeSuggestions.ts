@@ -8,7 +8,7 @@ export default async function getAlternativeResults(): Promise<Coding[]> {
     const activeCell = context.workbook.getActiveCell();
     activeCell.load({ rowIndex: true });
     await context.sync();
-    const range = sheet.getUsedRange().find("Results", { completeMatch: true, matchCase: false });
+    const range = sheet.getUsedRange().find("JSONResults", { completeMatch: true, matchCase: false });
     range.load("columnIndex");
     await context.sync();
     const full_result = sheet.getCell(activeCell.rowIndex, range.columnIndex);
