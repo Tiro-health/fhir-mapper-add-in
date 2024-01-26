@@ -18,10 +18,11 @@ export default async function importCodingNewLine({ code, display, system }: Cod
     const nextRow = activeCell.getRowsBelow();
     nextRow.load({ rowIndex: true, address: true });
     await context.sync();
-    console.log(nextRow.address);
-    console.log(nextRow.rowIndex);
+    // Insert empty row
     // eslint-disable-next-line no-undef
-    nextRow.getEntireRow().insert(Excel.InsertShiftDirection.down);
+    // nextRow.getEntireRow().insert(Excel.InsertShiftDirection.down);
+    // Insert duplicate of row
+    nextRow.getEntireRow().copyFrom(activeCell.getEntireRow());
     await context.sync();
     const newCell = sheet.getCell(nextRow.rowIndex, activeCell.columnIndex);
     newCell.valuesAsJson = [[createCodingEntityCard({ code, display, system })]];
