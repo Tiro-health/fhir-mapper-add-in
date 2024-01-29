@@ -69,11 +69,11 @@ function buildEntityCard(deserialized: unknown): Excel.EntityCellValue | Excel.E
     };
   }
   const { data } = parsed;
-  const procedureCode = data["procedure.code"] as CodingMatch[];
-  const reasonCode = data["procedure.reasonCode"] as CodingMatch[];
-  const bodySite = data["procedure.bodySite"] as CodingMatch[];
-  const focalDevice = data["procedure.focalDevice"] as CodingMatch[];
-  const usedCode = data["procedure.usedCode"] as CodingMatch[];
+  const procedureCode = data["code"] as CodingMatch[];
+  const reasonCode = data["reasoncode"] as CodingMatch[];
+  const bodySite = data["bodysite"] as CodingMatch[];
+  const focalDevice = data["focaldevice"] as CodingMatch[];
+  const usedCode = data["usedcode"] as CodingMatch[];
   const emptyCoding = { display: "/", code: "/", semantic_axis: "/", score: 0 };
   // eslint-disable-next-line no-undef
   const properties: [string, Excel.EntityPropertyType | Excel.EntityCellValue][] = [];
