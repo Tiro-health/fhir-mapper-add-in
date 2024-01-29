@@ -1,5 +1,6 @@
 import React from "react";
 import AlternativeSuggestions from "./AlternativeSuggstions";
+import ValidateResultsButtons from "./ValidateResults";
 import SearchPanel from "./SearchPanel";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
@@ -19,6 +20,7 @@ const App = ({ title }: AppProps) => {
         <main className="mt-8 px-2 flex flex-col gap-y-8">
           <AlternativeSuggestions />
           <SearchPanel />
+          <ValidateResultsButtons />
         </main>
       </div>
     </QueryClientProvider>
