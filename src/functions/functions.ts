@@ -172,6 +172,10 @@ function getCodingMatchProperties(match: CodingMatch): Record<string, Excel.Enti
       type: "Double",
       basicValue: match.score,
     },
+    semantic_axis: {
+      type: "String",
+      basicValue: match ? match.semantic_axis : "/",
+    },
     system: {
       type: "String",
       basicValue: match ? `http://snomed.info/sct/` : "/",

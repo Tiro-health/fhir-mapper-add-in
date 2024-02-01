@@ -20,6 +20,7 @@ export default async function getAlternativeResults(): Promise<Coding[]> {
     procedureArray = resultBody["code"].map((obj: Record<string, string>) => ({
       code: obj["code"],
       display: obj["display"],
+      semantic_axis: obj["semantic_axis"],
       system: "http://snomed.info/sct/",
     })) as Coding[];
     console.log(procedureArray);

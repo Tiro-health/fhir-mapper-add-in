@@ -17,16 +17,19 @@ export const EXAMPLE_CODINGS: Coding[] = [
     code: "123",
     display: "Test 1",
     system: "http://snomed.info/sct",
+    semantic_axis: "Procedure",
   },
   {
     code: "234",
     display: "Test 2",
     system: "http://snomed.info/sct",
+    semantic_axis: "Condition",
   },
   {
     code: "345",
     display: "Test 3",
     system: "http://snomed.info/sct",
+    semantic_axis: "Body Structure",
   },
 ];
 
@@ -45,20 +48,29 @@ function CodingList({ codings }: { codings: Coding[] }) {
           <div className="w-full flex gap-x-2">
             <div className="grow flex items-baseline gap-x-3">
               <p className="text-sm font-semibold leading-6 text-gray-900 grow">{coding.display}</p>
-              <div>
-                <span>
+              <div className="flex">
+                <div className="flex flex-col text-right">
+                  <code
+                    className={classNames(
+                      "text-gray-600 bg-gray-50 ring-gray-500/10",
+                      "rounded-md mt-0.5 px-1.5 py-0.5 text-xs font-medium ring-1 ring-inset",
+                      "text-right"
+                    )}
+                  >
+                    {coding.code}
+                  </code>
                   <code
                     className={classNames(
                       "text-gray-600 bg-gray-50 ring-gray-500/10",
                       "rounded-md whitespace-nowrap mt-0.5 px-1.5 py-0.5 text-xs font-medium ring-1 ring-inset"
                     )}
                   >
-                    {coding.code}
+                    {coding.semantic_axis}
                   </code>
-                  <a href={`http://snomed.info/sct/${coding.code}`} className="material-symbols-outlined text-xs">
-                    open_in_new
-                  </a>
-                </span>
+                </div>
+                <a href={`http://snomed.info/sct/${coding.code}`} className="material-symbols-outlined text-xs">
+                  open_in_new
+                </a>
               </div>
               <div>
                 {SYSTEM_URI_TO_NAME[coding.system] && (

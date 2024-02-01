@@ -1,8 +1,9 @@
+/* eslint-disable prettier/prettier */
 import { Coding } from "./types";
 /** global Excel */
 
 // eslint-disable-next-line no-undef
-export default function createCodingEntityCard({ display }: Coding): Excel.EntityCellValue {
+export default function createCodingEntityCard({ code, display, system, semantic_axis }: Coding): Excel.EntityCellValue {
   return {
     type: "Entity",
     text: display,
@@ -13,11 +14,15 @@ export default function createCodingEntityCard({ display }: Coding): Excel.Entit
       },
       code: {
         type: "String",
-        basicValue: "123456789",
+        basicValue: code,
       },
       system: {
         type: "String",
-        basicValue: "http://snomed.info/sct",
+        basicValue: system, // "http://snomed.info/sct",
+      },
+      semantic_axis: {
+        type: "String",
+        basicValue: semantic_axis,
       },
     },
   };

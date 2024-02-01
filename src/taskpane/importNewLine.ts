@@ -1,14 +1,7 @@
 import createCodingEntityCard from "./createCodingEntityCard";
+import { Coding } from "./types";
 
-/** global Excel */
-type Coding = {
-  code: string;
-  display: string;
-  system: string;
-  version?: string;
-};
-
-export default async function importCodingNewLine({ code, display, system }: Coding) {
+export default async function importCodingNewLine({ code, display, system, semantic_axis }: Coding) {
   // eslint-disable-next-line no-undef
   await Excel.run(async (context) => {
     const sheet = context.workbook.worksheets.getActiveWorksheet();
@@ -27,7 +20,7 @@ export default async function importCodingNewLine({ code, display, system }: Cod
     // nextRow.getEntireRow().copyFrom(activeCell.getEntireRow());
     // await context.sync();
     const newCell = sheet.getCell(nextRow.rowIndex, activeCell.columnIndex);
-    newCell.valuesAsJson = [[createCodingEntityCard({ code, display, system })]];
+    newCell.valuesAsJson = [[createCodingEntityCard({ code, display, system, semantic_axis })]];
     await context.sync();
   });
 }

@@ -26,10 +26,11 @@ async function getSearchResults(query: string, options: SearchOptions = DEFAULT_
       return searchResults;
     }
     const responseJson = await response.json();
-    const result = responseJson["expansion"]["contains"].map(({ code, display, system }) => ({
+    const result = responseJson["expansion"]["contains"].map(({ code, display, system, property }) => ({
       code,
       display,
       system,
+      semantic_axis: property[0]?.valueCoding?.display,
     }));
     return result;
   } catch (e) {
