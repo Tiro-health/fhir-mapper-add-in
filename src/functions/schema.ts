@@ -16,10 +16,11 @@ export const CodingMatchSchema = z.strictObject({
 export const CodingMatchArraySchema = z.array(CodingMatchSchema);
 
 export const ProcedureMatchSchema = z.strictObject({
-  "procedure.code": CodingMatchArraySchema,
-  "procedure.reasonCode": CodingMatchArraySchema,
-  "procedure.bodySite": CodingMatchArraySchema,
-  "procedure.focalDevice": CodingMatchArraySchema,
-  "procedure.usedCode": CodingMatchArraySchema,
-  "procedure.note": CodingMatchArraySchema,
+  resourcetype: z.string(),
+  code: CodingMatchArraySchema,
+  reasoncode: CodingMatchArraySchema,
+  bodysite: CodingMatchArraySchema,
+  focaldevice: CodingMatchArraySchema,
+  usedcode: CodingMatchArraySchema,
+  note: CodingMatchArraySchema,
 });

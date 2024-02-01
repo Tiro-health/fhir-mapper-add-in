@@ -17,7 +17,7 @@ export default async function getAlternativeResults(): Promise<Coding[]> {
     // wait for response of API
     const resultBody = JSON.parse(full_result.values[0][0]);
     // Get the first array in 'procedure.code'
-    procedureArray = resultBody["procedure.code"].map((obj: Record<string, string>) => ({
+    procedureArray = resultBody["code"].map((obj: Record<string, string>) => ({
       code: obj["code"],
       display: obj["display"],
       system: "http://snomed.info/sct/",
