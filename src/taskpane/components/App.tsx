@@ -18,9 +18,9 @@ const App = ({ title }: AppProps) => {
           <h2 className="mx-2 font-semibold text-2xl text-[#232D5B] leading-none">{title}</h2>
         </div>
         <main className="mt-8 px-2 flex flex-col gap-y-8">
+          <ValidateResultsButtons />
           <AlternativeSuggestions />
           <SearchPanel />
-          <ValidateResultsButtons />
         </main>
       </div>
     </QueryClientProvider>
