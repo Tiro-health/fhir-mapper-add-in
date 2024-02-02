@@ -79,13 +79,18 @@ function CodingList({ codings }: { codings: Coding[] }) {
               </div>
             </div>
             <div>
-              <Button key="import_button" type="button" onClick={() => handleClick(coding)}>
-                Importeer
+              <Button key="import_button" type="button" onClick={() => handleClick(coding)} style={{ display: "flex" }}>
+                <span className="material-symbols-outlined">place_item</span>
               </Button>
             </div>
             <div>
-              <Button key="add_button" type="button" onClick={() => handleNewLineClick(coding)}>
-                +
+              <Button
+                key="add_button"
+                type="button"
+                onClick={() => handleNewLineClick(coding)}
+                style={{ display: "flex", fontSize: "8px" }}
+              >
+                <span className="material-symbols-outlined">add</span>
               </Button>
             </div>
           </div>
