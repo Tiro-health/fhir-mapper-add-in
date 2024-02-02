@@ -9,7 +9,7 @@ export default function AlternativeSuggestions() {
   return (
     <section className="border-b border-gray-200 pb-4">
       <div className="flex gap-x-3">
-        <h4 className="font-semibold text-lg text-gray-500 leading-tight">Alternatieve suggesties</h4>
+        <h4 className="font-semibold text-lg text-gray-500 leading-tight">Alternative suggestions</h4>
         <div>
           <button
             type="button"
@@ -22,9 +22,9 @@ export default function AlternativeSuggestions() {
       </div>
       {alternativeSuggestions.length == 0 ? (
         <p className="text-sm text-gray-600">
-          Selecteer een cell en druk op &ldquo;sync
+          Select a cell and push &ldquo;sync
           <span className="inline relative top-0.5 material-symbols-outlined text-sm">sync</span>
-          &rdquo;-knop
+          &rdquo;
         </p>
       ) : (
         <CodingList codings={alternativeSuggestions} />

@@ -35,24 +35,24 @@ export default function SearchPanel() {
 
   return (
     <section className="">
-      <h4 className="font-semibold text-lg text-gray-500 leading-tight">Zoek een andere code</h4>
+      <h4 className="font-semibold text-lg text-gray-500 leading-tight">Search a different code</h4>
       <form className="mt-2 mb-4 flex gap-x-3" onSubmit={handleSearch}>
         <input
           name="query"
           type="text"
           className="flex-1 py-1.5 px-2 block w-full rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-          placeholder="Zoek op code of omschrijving"
+          placeholder="Search for a code or a description"
         />
         <Button type="submit" className="flex align-middle">
-          <span className="sr-only">Zoek</span>
+          <span className="sr-only">Search</span>
           <span className="material-symbols-outlined">search</span>
         </Button>
       </form>
       <Select options={selectoptions} isMulti onChange={onSelectOptions} />
       {isFetching ? (
-        <p className="text-gray-500 text-center">Laden...</p>
+        <p className="text-gray-500 text-center">Loading...</p>
       ) : searchResults.length == 0 ? (
-        <p className="text-gray-500 text-center">Geen resultaten</p>
+        <p className="text-gray-500 text-center">No results</p>
       ) : (
         <CodingList codings={searchResults} />
       )}
