@@ -69,12 +69,13 @@ function buildEntityCard(deserialized: unknown): Excel.EntityCellValue | Excel.E
     };
   }
   const { data } = parsed;
+  const inputDescription = data["input_description"];
   const procedureCode = data["code"] as CodingMatch[];
   const reasonCode = data["reasoncode"] as CodingMatch[];
   const bodySite = data["bodysite"] as CodingMatch[];
   const focalDevice = data["focaldevice"] as CodingMatch[];
   const usedCode = data["usedcode"] as CodingMatch[];
-  const emptyCoding = { display: "/", code: "/", semantic_axis: "/", score: 0 };
+  const emptyCoding = { display: "/", code: "/", semantic_axis: "/", score: 0, prefered_term: "/" };
   // eslint-disable-next-line no-undef
   const properties: [string, Excel.EntityPropertyType | Excel.EntityCellValue][] = [];
   // eslint-disable-next-line no-undef
@@ -126,7 +127,7 @@ function buildEntityCard(deserialized: unknown): Excel.EntityCellValue | Excel.E
   // eslint-disable-next-line no-undef
   const entity: Excel.EntityCellValue = {
     type: "Entity",
-    text: "Results based on JSONresult",
+    text: "Results based on " + inputDescription,
     properties: Object.fromEntries(properties),
     layouts: {
       card: {
@@ -172,9 +173,13 @@ function getCodingMatchProperties(match: CodingMatch): Record<string, Excel.Enti
       type: "Double",
       basicValue: match.score,
     },
-    semantic_axis: {
+    semanticAxis: {
       type: "String",
       basicValue: match ? match.semantic_axis : "/",
+    },
+    preferredTerm: {
+      type: "String",
+      basicValue: match ? match.prefered_term : "/",
     },
     system: {
       type: "String",
@@ -189,17 +194,5 @@ function getCodingMatchEntity(match: CodingMatch): Excel.EntityCellValue | Excel
     type: "Entity",
     text: match.display,
     properties: getCodingMatchProperties(match),
-    // layouts: {
-    //   card: {
-    //     title: "display",
-    //     sections: [
-    //       {
-    //         layout: "List",
-    //         title: "Procedure",
-    //         properties: ["display, code, system"],
-    //       },
-    //     ],
-    //   },
-    // },
   };
 }
